@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>طلة | أناقة محتشمة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#221f1a;
+    --parchment:#f1e9da;
+    --parchment-2:#e9dfcb;
+    --card:#faf6ee;
+    --emerald:#24443a;
+    --emerald-2:#1a332b;
+    --wine:#7b2d3b;
+    --gold:#ad8a4e;
+    --ok:#3f6b4f;
+    --danger:#9a3b3b;
+    --line:rgba(34,31,26,0.14);
+    --serif:'Amiri', 'Times New Roman', serif;
+    --sans:'Tajawal', 'Segoe UI', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--sans); background:var(--parchment); color:var(--ink); line-height:1.6; min-height:100vh;}
+  img{max-width:100%; display:block;}
+  button{font-family:inherit; cursor:pointer;}
+  input, select, textarea{font-family:inherit;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;} }
+
+  /* ===== NAV ===== */
+  .site-nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px clamp(20px,5vw,64px); position:sticky; top:0; z-index:100;
+    background:rgba(241,233,218,0.94); backdrop-filter:blur(6px); border-bottom:1px solid var(--line);
+  }
+  .wordmark{font-family:var(--serif); font-size:29px; font-weight:700; color:var(--emerald); letter-spacing:1px;}
+  .nav-links{display:flex; gap:26px; align-items:center;}
+  .nav-links a{color:var(--ink); text-decoration:none; font-size:14px; position:relative; padding-bottom:4px;}
+  .nav-links a::after{content:''; position:absolute; right:0; bottom:0; width:0; height:1px; background:var(--gold); transition:width .3s;}
+  .nav-links a:hover::after{width:100%;}
+  .admin-link-btn{background:none; border:1px solid var(--emerald); color:var(--emerald); padding:9px 20px; font-size:13px; transition:all .25s;}
+  .admin-link-btn:hover{background:var(--emerald); color:var(--parchment);}
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar{
+    display:flex; justify-content:center; gap:clamp(16px,4vw,48px); flex-wrap:wrap;
+    padding:14px 20px; background:var(--emerald); color:var(--parchment);
+    font-size:12.5px; letter-spacing:.3px;
+  }
+  .trust-bar span{opacity:.95;}
+
+  /* ===== HERO ===== */
+  .hero{position:relative; min-height:70vh; display:flex; align-items:center; justify-content:center; overflow:hidden; text-align:center; padding:40px 20px;}
+  .hero-panel{position:absolute; top:0; bottom:0; width:50%; z-index:5;}
+  .hero-panel.left{right:0; background:var(--emerald); animation:openLeft 1.4s cubic-bezier(.77,0,.18,1) forwards;}
+  .hero-panel.right{left:0; background:var(--wine); animation:openRight 1.4s cubic-bezier(.77,0,.18,1) forwards;}
+  @keyframes openLeft{ to{ transform:translateX(100%);} }
+  @keyframes openRight{ to{ transform:translateX(-100%);} }
+  .hero-panel::after{content:''; position:absolute; inset:0; background-image:repeating-linear-gradient(115deg, rgba(255,255,255,0.035) 0 2px, transparent 2px 14px);}
+  .hero-content{position:relative; z-index:2; max-width:720px; opacity:0; animation:fadeUp 1s ease 1.3s forwards;}
+  @keyframes fadeUp{ from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:translateY(0);} }
+  .hero-eyebrow{font-size:13px; letter-spacing:4px; color:var(--wine); margin-bottom:16px; text-transform:uppercase;}
+  .hero h1{font-family:var(--serif); font-size:clamp(34px,6vw,62px); color:var(--emerald); font-weight:700; line-height:1.25; margin-bottom:18px;}
+  .hero h1 span{color:var(--wine); font-style:italic;}
+  .hero p{font-size:16.5px; color:#4a453d; max-width:480px; margin:0 auto 30px;}
+  .hero-cta{display:inline-block; background:var(--emerald); color:var(--parchment); padding:14px 40px; font-size:14px; letter-spacing:1.5px; border:none; text-decoration:none; transition:background .3s;}
+  .hero-cta:hover{background:var(--emerald-2);}
+
+  /* ===== CATEGORY PILLS ===== */
+  .category-bar{display:flex; gap:10px; flex-wrap:wrap; padding:0 clamp(20px,5vw,64px); margin-top:40px;}
+  .pill{background:none; border:1px solid var(--line); color:#4a453d; padding:8px 20px; font-size:13px; border-radius:20px; transition:all .2s;}
+  .pill.active, .pill:hover{background:var(--ink); color:var(--parchment); border-color:var(--ink);}
+
+  .section-head{display:flex; align-items:baseline; justify-content:space-between; padding:0 clamp(20px,5vw,64px); margin:28px 0 26px; border-bottom:1px solid var(--line); padding-bottom:16px;}
+  .section-head h2{font-family:var(--serif); font-size:30px;}
+  .section-head .count{font-size:13px; color:#7a7468; letter-spacing:1px;}
+
+  /* ===== PRODUCT GRID ===== */
+  .products-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(270px, 1fr)); gap:2px; background:var(--line); padding:0 clamp(20px,5vw,64px) 24px;}
+  .product-card{background:var(--card); display:flex; flex-direction:column; position:relative;}
+  .product-image-wrap{position:relative; width:100%; aspect-ratio:3/4; overflow:hidden; background:var(--parchment-2);}
+  .product-image-wrap img{width:100%; height:100%; object-fit:cover; transition:transform .6s ease;}
+  .product-card:hover .product-image-wrap img{transform:scale(1.05);}
+  .stock-flag{position:absolute; top:14px; right:14px; background:var(--wine); color:#fff; font-size:11px; padding:5px 12px; letter-spacing:.5px;}
+  .stock-flag.low{background:var(--gold);}
+  .stock-flag.out{background:#8a8378;}
+  .cat-flag{position:absolute; top:14px; left:14px; background:rgba(250,246,238,0.92); color:var(--ink); font-size:10.5px; padding:4px 11px; letter-spacing:.4px;}
+  .product-body{padding:20px 20px 22px; flex:1; display:flex; flex-direction:column;}
+  .product-name{font-family:var(--serif); font-size:20px; margin-bottom:5px;}
+  .product-desc{font-size:13px; color:#6b6558; margin-bottom:14px;}
+
+  /* color dots under image */
+  .color-dots-row{display:flex; align-items:center; gap:9px; margin-bottom:14px; flex-wrap:wrap;}
+  .color-dot{
+    width:22px; height:22px; border-radius:50%; border:2px solid var(--card);
+    box-shadow:0 0 0 1px var(--line); cursor:pointer; padding:0; transition:box-shadow .2s, transform .2s;
+    flex-shrink:0;
+  }
+  .color-dot:hover{transform:scale(1.12);}
+  .color-dot.active{box-shadow:0 0 0 2px var(--card), 0 0 0 3px var(--emerald);}
+  .color-name-tag{font-size:11.5px; color:#7a7468; margin-inline-start:2px;}
+
+  .size-tags{font-size:11.5px; color:#8a8378; margin-bottom:14px; letter-spacing:.3px;}
+
+  .product-footer{display:flex; align-items:center; justify-content:space-between; margin-top:auto;}
+  .product-price{font-size:19px; font-weight:700; color:var(--emerald);}
+  .order-btn{background:var(--ink); color:var(--parchment); border:none; padding:11px 22px; font-size:13px; letter-spacing:.8px; transition:background .25s;}
+  .order-btn:hover{background:var(--wine);}
+  .order-btn:disabled{background:#b8b2a4; cursor:not-allowed;}
+  .empty-note{grid-column:1/-1; text-align:center; padding:60px 20px; color:#8a8378; background:var(--card);}
+
+  /* ===== ORDER MODAL (redesigned) ===== */
+  .modal{display:none; position:fixed; inset:0; z-index:1000; background:rgba(34,31,26,0.6); align-items:center; justify-content:center; padding:20px;}
+  .modal.active{display:flex;}
+  .order-modal-content{
+    background:var(--card); width:100%; max-width:760px; max-height:94vh; overflow-y:auto;
+    position:relative; border-top:4px solid var(--emerald); animation:fadeUp .35s ease;
+    display:grid; grid-template-columns:280px 1fr;
+  }
+  @media (max-width:680px){ .order-modal-content{grid-template-columns:1fr;} }
+  .order-modal-media{background:var(--parchment-2); position:relative; min-height:220px;}
+  .order-modal-media img{width:100%; height:100%; object-fit:cover; position:absolute; inset:0;}
+  .order-modal-form{padding:32px 30px;}
+  .close-modal{position:absolute; left:16px; top:14px; font-size:24px; color:#fff; background:rgba(34,31,26,0.4); border:none; width:32px; height:32px; border-radius:50%; z-index:3; line-height:1;}
+  @media (max-width:680px){ .close-modal{color:var(--ink); background:rgba(255,255,255,0.7);} }
+  .order-modal-form h2{font-family:var(--serif); font-size:25px; color:var(--emerald); margin-bottom:4px;}
+  .order-modal-form .om-price{font-size:15px; color:var(--wine); margin-bottom:22px; font-weight:700;}
+
+  .field-label{font-size:13px; color:#4a453d; letter-spacing:.3px; margin-bottom:9px; display:flex; justify-content:space-between;}
+  .field-label b{color:var(--ink); font-weight:600;}
+  .om-section{margin-bottom:22px;}
+
+  .om-color-row{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+  .om-color-dot{
+    width:34px; height:34px; border-radius:50%; border:2px solid var(--card);
+    box-shadow:0 0 0 1px var(--line); cursor:pointer; position:relative; flex-shrink:0; transition:transform .2s;
+  }
+  .om-color-dot:hover{transform:scale(1.08);}
+  .om-color-dot.active{box-shadow:0 0 0 2px var(--card), 0 0 0 3px var(--emerald);}
+
+  .om-size-row{display:flex; flex-wrap:wrap; gap:9px;}
+  .om-size-chip{border:1px solid var(--line); background:#fff; padding:9px 18px; font-size:13.5px; min-width:46px; text-align:center; transition:all .2s;}
+  .om-size-chip.active{background:var(--emerald); color:#fff; border-color:var(--emerald);}
+  .om-size-chip:disabled{opacity:.4; cursor:not-allowed; text-decoration:line-through;}
+
+  .form-group{margin-bottom:16px;}
+  .form-group label{display:block; font-size:13px; margin-bottom:7px; color:#4a453d;}
+  .form-group input, .form-group textarea{width:100%; padding:12px 13px; border:1px solid var(--line); background:#fff; font-size:14px;}
+  .form-group input:focus, .form-group textarea:focus{outline:none; border-color:var(--emerald);}
+  .form-group textarea{min-height:64px; resize:vertical;}
+  .submit-btn{width:100%; background:var(--emerald); color:#fff; border:none; padding:15px; font-size:14px; letter-spacing:1px; margin-top:4px; transition:background .25s;}
+  .submit-btn:hover{background:var(--emerald-2);}
+  .submit-btn:disabled{background:#b8b2a4; cursor:not-allowed;}
+  .validation-hint{font-size:12px; color:var(--wine); margin-top:-10px; margin-bottom:14px; display:none;}
+  .validation-hint.show{display:block;}
+
+  /* ===== ADMIN ===== */
+  .admin-panel{display:none; padding:28px clamp(20px,5vw,64px) 60px;}
+  .admin-panel.active{display:block;}
+  .admin-header h1{font-family:var(--serif); font-size:28px; color:var(--emerald); margin-bottom:22px;}
+  .admin-tabs{display:flex; gap:8px; margin-bottom:24px; flex-wrap:wrap;}
+  .tab-btn{background:transparent; border:1px solid var(--line); color:var(--ink); padding:10px 20px; font-size:13.5px;}
+  .tab-btn.active{background:var(--ink); color:var(--parchment); border-color:var(--ink);}
+  .tab-btn.logout-btn{margin-right:auto; border-color:var(--danger); color:var(--danger);}
+  .tab-content{display:none; background:var(--card); padding:26px; border-top:3px solid var(--emerald);}
+  .tab-content.active{display:block;}
+  .tab-content h2{font-family:var(--serif); font-size:22px; margin-bottom:20px;}
+  .form-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media (max-width:600px){.form-row{grid-template-columns:1fr;}}
+  .price-row{display:grid; grid-template-columns:1fr 140px; gap:10px;}
+  .image-upload-box{border:1px dashed rgba(34,31,26,0.35); padding:16px; text-align:center; background:var(--parchment);}
+  .image-upload-box input[type="file"]{width:100%; font-size:13px;}
+  .image-preview{margin-top:12px; width:100px; height:128px; object-fit:cover; border:1px solid var(--line); display:none;}
+  .or-divider{font-size:12px; color:#8a8378; text-align:center; margin:10px 0;}
+
+  fieldset.builder{border:1px solid var(--line); padding:16px; margin-bottom:18px;}
+  fieldset.builder legend{font-size:13px; color:#4a453d; padding:0 6px;}
+  .add-color-row{display:grid; grid-template-columns:44px 1fr auto; gap:10px; align-items:center; margin-bottom:12px;}
+  .add-color-row input[type="color"]{width:44px; height:38px; border:1px solid var(--line); padding:0; background:none;}
+  .add-color-row input[type="text"]{padding:9px 12px; border:1px solid var(--line); font-size:13.5px;}
+  .mini-add-btn{background:var(--emerald); color:#fff; border:none; padding:9px 16px; font-size:13px; white-space:nowrap;}
+  .mini-add-btn:hover{background:var(--emerald-2);}
+  .chips-preview{display:flex; flex-wrap:wrap; gap:10px;}
+  .color-chip-preview{display:flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); padding:6px 10px 6px 6px; font-size:12.5px;}
+  .color-chip-preview .dot{width:18px; height:18px; border-radius:50%; box-shadow:0 0 0 1px var(--line); flex-shrink:0;}
+  .chip-remove{background:none; border:none; color:var(--danger); font-size:14px; padding:0 2px;}
+
+  .size-preset-row{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;}
+  .size-toggle{border:1px solid var(--line); background:#fff; padding:8px 16px; font-size:13px;}
+  .size-toggle.active{background:var(--ink); color:#fff; border-color:var(--ink);}
+  .size-custom-row{display:flex; gap:8px;}
+  .size-custom-row input{flex:1; padding:9px 12px; border:1px solid var(--line); font-size:13.5px;}
+
+  .table-scroll{overflow-x:auto;}
+  .product-table{width:100%; border-collapse:collapse; margin-top:6px; min-width:640px;}
+  .product-table th, .product-table td{padding:12px 10px; text-align:right; border-bottom:1px solid var(--line); font-size:13.5px; vertical-align:middle;}
+  .product-table th{background:var(--emerald); color:#fff; font-weight:500; font-size:12.5px;}
+  .stock-input{width:70px; padding:6px 8px; border:1px solid var(--line);}
+  .mini-dots{display:flex; gap:4px; flex-wrap:wrap;}
+  .mini-dots span{width:16px; height:16px; border-radius:50%; box-shadow:0 0 0 1px var(--line); display:inline-block;}
+  .delete-btn{background:none; border:1px solid var(--danger); color:var(--danger); padding:6px 14px; font-size:12px;}
+  .delete-btn:hover{background:var(--danger); color:#fff;}
+  .success-message{background:var(--ok); color:#fff; padding:13px 16px; margin-bottom:18px; display:none; font-size:14px;}
+  .success-message.active{display:block;}
+  .order-card{background:var(--parchment); border-right:3px solid var(--emerald); padding:16px 18px; margin-bottom:12px; font-size:14px;}
+  .order-card div{margin-bottom:3px;}
+  .order-card strong{color:var(--emerald);}
+  .no-orders{color:#8a8378; padding:20px 0;}
+
+  footer{text-align:center; padding:34px 20px; font-size:13px; color:#8a8378; border-top:1px solid var(--line); margin-top:10px;}
+  footer span{font-family:var(--serif); color:var(--emerald); font-size:16px;}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="wordmark">طلة</div>
+  <div class="nav-links">
+    <a href="#products">المتجر</a>
+    <button class="admin-link-btn" onclick="toggleAdmin()">لوحة التحكم</button>
+  </div>
+</nav>
+
+<div id="store-view">
+  <div class="trust-bar">
+    <span>🚚 شحن لجميع المحافظات</span>
+    <span>💳 الدفع عند الاستلام</span>
+    <span>🔄 استبدال خلال ١٤ يوم</span>
+    <span>⭐ جودة مضمونة</span>
+  </div>
+
+  <section class="hero">
+    <div class="hero-panel left"></div>
+    <div class="hero-panel right"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">TALLA — طلة</div>
+      <h1>كل قطعة عندنا... <span>طلّة</span> جديدة</h1>
+      <p>ملابس محتشمة بتصميم عصري، تجمع بين الحشمة والأناقة في كل تفصيلة.</p>
+      <a href="#products" class="hero-cta">تصفّحي المجموعة</a>
+    </div>
+  </section>
+
+  <div class="category-bar" id="category-bar"></div>
+
+  <div class="section-head" id="products">
+    <h2>المجموعة</h2>
+    <span class="count" id="products-count"></span>
+  </div>
+  <div class="products-grid" id="products-grid"></div>
+
+  <footer>من <span>طلة</span> — أناقة محتشمة بلمسة عصرية</footer>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="admin-panel" class="admin-panel">
+  <div class="admin-header"><h1>لوحة التحكم — طلة</h1></div>
+  <div class="admin-tabs">
+    <button class="tab-btn active" onclick="switchTab('add-product', event)">إضافة منتج</button>
+    <button class="tab-btn" onclick="switchTab('manage-products', event)">إدارة المنتجات</button>
+    <button class="tab-btn" onclick="switchTab('orders', event)">الطلبات</button>
+    <button class="tab-btn logout-btn" onclick="switchTab('logout', event)">خروج</button>
+  </div>
+
+  <div id="add-product" class="tab-content active">
+    <h2>إضافة منتج جديد</h2>
+    <div class="success-message" id="add-success">تمت إضافة المنتج بنجاح</div>
+    <form id="add-product-form">
+      <div class="form-group"><label>اسم المنتج</label><input type="text" id="product-name" required></div>
+      <div class="form-group"><label>الوصف</label><textarea id="product-desc" required></textarea></div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>التصنيف</label>
+          <select id="product-category" style="width:100%; padding:11px 13px; border:1px solid rgba(34,31,26,0.25);">
+            <option value="عبايات">عبايات</option>
+            <option value="دريسات">دريسات</option>
+            <option value="أطقم صلاة">أطقم صلاة</option>
+            <option value="اكسسوارات">اكسسوارات</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>السعر والعملة</label>
+          <div class="price-row">
+            <input type="number" id="product-price" placeholder="السعر" step="0.01" required>
+            <select id="product-currency">
+              <option value="ج.م">ج.م — جنيه مصري</option>
+              <option value="ر.س">ر.س — ريال سعودي</option>
+              <option value="د.إ">د.إ — درهم إماراتي</option>
+              <option value="د.ك">د.ك — دينار كويتي</option>
+              <option value="د.أ">د.أ — دينار أردني</option>
+              <option value="$">$ — دولار أمريكي</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>صورة المنتج</label>
+        <div class="image-upload-box">
+          <input type="file" id="product-image-file" accept="image/*">
+          <img id="image-preview" class="image-preview">
+        </div>
+        <div class="or-divider">أو الصقي رابط صورة</div>
+        <input type="text" id="product-image" placeholder="https://example.com/image.jpg">
+      </div>
+
+      <fieldset class="builder">
+        <legend>الألوان المتاحة</legend>
+        <div class="add-color-row">
+          <input type="color" id="new-color-hex" value="#24443a">
+          <input type="text" id="new-color-name" placeholder="اسم اللون (مثال: أخضر زمردي)">
+          <button type="button" class="mini-add-btn" onclick="addColorToDraft()">إضافة</button>
+        </div>
+        <div class="chips-preview" id="colors-draft-preview"></div>
+      </fieldset>
+
+      <fieldset class="builder">
+        <legend>المقاسات المتاحة</legend>
+        <div class="size-preset-row" id="size-preset-row"></div>
+        <div class="size-custom-row">
+          <input type="text" id="new-size-custom" placeholder="مقاس مخصص (مثال: مقاس واحد)">
+          <button type="button" class="mini-add-btn" onclick="addCustomSize()">إضافة</button>
+        </div>
+      </fieldset>
+
+      <div class="form-group"><label>الكمية بالمخزون</label><input type="number" id="product-stock" value="10" required></div>
+      <button type="submit" class="submit-btn">إضافة المنتج</button>
+    </form>
+  </div>
+
+  <div id="manage-products" class="tab-content">
+    <h2>إدارة المنتجات</h2>
+    <div class="table-scroll">
+      <table class="product-table">
+        <thead><tr><th>الصورة</th><th>المنتج</th><th>الألوان</th><th>المقاسات</th><th>السعر</th><th>العملة</th><th>المخزون</th><th>إجراءات</th></tr></thead>
+        <tbody id="admin-products-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="orders" class="tab-content">
+    <h2>الطلبات المستقبلة</h2>
+    <div id="orders-list"></div>
+  </div>
+</div>
+
+<!-- ORDER MODAL -->
+<div id="order-modal" class="modal">
+  <div class="order-modal-content">
+    <button class="close-modal" onclick="closeOrderModal()">&times;</button>
+    <div class="order-modal-media"><img id="om-image" src="" alt=""></div>
+    <div class="order-modal-form">
+      <h2 id="om-name"></h2>
+      <div class="om-price" id="om-price"></div>
+      <form id="order-form">
+        <div class="om-section">
+          <div class="field-label">اللون <b id="om-color-label">—</b></div>
+          <div class="om-color-row" id="om-color-row"></div>
+        </div>
+        <div class="om-section">
+          <div class="field-label">المقاس <b id="om-size-label">—</b></div>
+          <div class="om-size-row" id="om-size-row"></div>
+        </div>
+        <div class="form-group"><label>رقم التليفون *</label><input type="tel" id="order-phone" placeholder="01xxxxxxxxx" required></div>
+        <div class="form-group"><label>العنوان بالتفصيل *</label><textarea id="order-address" placeholder="المحافظة - المنطقة - الشارع - علامة مميزة" required></textarea></div>
+        <div class="validation-hint" id="order-validation">من فضلك اختاري اللون والمقاس</div>
+        <button type="submit" class="submit-btn">تأكيد الطلب</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================= DATA ================= */
+let products = [
+  { id:1, name:"عباية أنيقة", description:"عباية فاخرة بقصّة عصرية وقماش مريح طوال اليوم.", price:150, currency:"ج.م", category:"عبايات",
+    image:"https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600&q=80",
+    colors:[{name:"أسود", hex:"#1c1c1c"},{name:"بني", hex:"#5b4636"},{name:"رمادي", hex:"#8a8378"}],
+    sizes:["S","M","L","XL"], stock:10 },
+  { id:2, name:"دريس محتشم", description:"دريس بخطوط ناعمة يناسب المناسبات اليومية والخاصة.", price:200, currency:"ج.م", category:"دريسات",
+    image:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&q=80",
+    colors:[{name:"أحمر عنابي", hex:"#7b2d3b"},{name:"كحلي", hex:"#1e2a4a"},{name:"أخضر زمردي", hex:"#24443a"}],
+    sizes:["M","L","XL"], stock:4 },
+  { id:3, name:"طقم صلاة مطرز", description:"طقم صلاة قطن ناعم بتطريز يدوي أنيق.", price:120, currency:"ج.م", category:"أطقم صلاة",
+    image:"https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=600&q=80",
+    colors:[{name:"كريمي", hex:"#e9dfcb"},{name:"وردي فاتح", hex:"#d9b8b0"}],
+    sizes:["مقاس واحد"], stock:0 }
+];
+let orders = [];
+let currentOrderProduct = null;
+let selectedColorByProduct = {};
+let omSelectedColor = null;
+let omSelectedSize = null;
+let activeCategory = 'الكل';
+const ADMIN_PASSWORD = "طلة123";
+const SIZE_PRESETS = ["S","M","L","XL","XXL","مقاس واحد"];
+const CURRENCY_OPTIONS = ["ج.م","ر.س","د.إ","د.ك","د.أ","$"];
+
+/* ================= STORAGE ================= */
+function loadStateFromStorage(){
+  const p = localStorage.getItem('talla-products');
+  if(p) products = JSON.parse(p);
+  const o = localStorage.getItem('talla-orders');
+  if(o) orders = JSON.parse(o);
+}
+function saveProducts(){ localStorage.setItem('talla-products', JSON.stringify(products)); }
+function saveOrders(){ localStorage.setItem('talla-orders', JSON.stringify(orders)); }
+
+/* ================= CATEGORY BAR ================= */
+function renderCategoryBar(){
+  const cats = ['الكل', ...new Set(products.map(p => p.category || 'أخرى'))];
+  document.getElementById('category-bar').innerHTML = cats.map(c =>
+    `<button class="pill ${c===activeCategory?'active':''}" onclick="setCategory('${c}')">${c}</button>`
+  ).join('');
+}
+function setCategory(c){
+  activeCategory = c;
+  renderCategoryBar();
+  renderProducts();
+}
+
+/* ================= STORE RENDER ================= */
+function renderProducts(){
+  const grid = document.getElementById('products-grid');
+  const filtered = activeCategory === 'الكل' ? products : products.filter(p => (p.category || 'أخرى') === activeCategory);
+  document.getElementById('products-count').textContent = filtered.length + ' قطعة';
+  if(filtered.length === 0){
+    grid.innerHTML = '<div class="empty-note">لا توجد منتجات في هذا التصنيف حالياً</div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(p => {
+    const stockFlag = p.stock <= 0 ? '<span class="stock-flag out">نفدت الكمية</span>'
+      : p.stock <= 3 ? '<span class="stock-flag low">كمية محدودة</span>' : '';
+    if(!selectedColorByProduct[p.id] && p.colors && p.colors.length) selectedColorByProduct[p.id] = p.colors[0].name;
+    const dots = (p.colors||[]).map(c => `
+      <button type="button" class="color-dot ${selectedColorByProduct[p.id]===c.name?'active':''}"
+        style="background:${c.hex}" title="${c.name}"
+        onclick="pickCardColor(event, ${p.id}, '${c.name.replace(/'/g,"")}')"></button>`).join('');
+    return `
+    <div class="product-card">
+      <div class="product-image-wrap">
+        <span class="cat-flag">${p.category || ''}</span>
+        <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x520/24443a/f1e9da?text=طلة'">
+        ${stockFlag}
+      </div>
+      <div class="product-body">
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.description}</div>
+        <div class="color-dots-row">${dots}<span class="color-name-tag">${selectedColorByProduct[p.id] || ''}</span></div>
+        <div class="size-tags">المقاسات: ${(p.sizes||[]).join(' · ')}</div>
+        <div class="product-footer">
+          <span class="product-price">${p.price} ${p.currency || 'ج.م'}</span>
+          <button class="order-btn" onclick="openOrderModal(${p.id})" ${p.stock<=0?'disabled':''}>
+            ${p.stock<=0?'غير متاح':'اطلبي الآن'}
+          </button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function pickCardColor(evt, productId, colorName){
+  evt.stopPropagation();
+  selectedColorByProduct[productId] = colorName;
+  renderProducts();
+}
+
+/* ================= ORDER MODAL ================= */
+function openOrderModal(id){
+  currentOrderProduct = products.find(p => p.id === id);
+  if(!currentOrderProduct) return;
+  document.getElementById('om-image').src = currentOrderProduct.image;
+  document.getElementById('om-name').textContent = currentOrderProduct.name;
+  document.getElementById('om-price').textContent = currentOrderProduct.price + ' ' + (currentOrderProduct.currency || 'ج.م');
+
+  omSelectedColor = selectedColorByProduct[id] || (currentOrderProduct.colors[0] && currentOrderProduct.colors[0].name) || null;
+  omSelectedSize = null;
+
+  const colorRow = document.getElementById('om-color-row');
+  colorRow.innerHTML = (currentOrderProduct.colors||[]).map(c => `
+    <button type="button" class="om-color-dot ${omSelectedColor===c.name?'active':''}" style="background:${c.hex}"
+      title="${c.name}" onclick="pickOmColor('${c.name.replace(/'/g,"")}')"></button>`).join('');
+  document.getElementById('om-color-label').textContent = omSelectedColor || '—';
+
+  const sizeRow = document.getElementById('om-size-row');
+  sizeRow.innerHTML = (currentOrderProduct.sizes||[]).map(s => `
+    <button type="button" class="om-size-chip" onclick="pickOmSize('${s.replace(/'/g,"")}')">${s}</button>`).join('');
+  document.getElementById('om-size-label').textContent = '—';
+
+  document.getElementById('order-form').reset();
+  document.getElementById('order-validation').classList.remove('show');
+  document.getElementById('order-modal').classList.add('active');
+}
+function pickOmColor(name){
+  omSelectedColor = name;
+  document.getElementById('om-color-label').textContent = name;
+  document.querySelectorAll('.om-color-dot').forEach(d => d.classList.toggle('active', d.title === name));
+}
+function pickOmSize(size){
+  omSelectedSize = size;
+  document.getElementById('om-size-label').textContent = size;
+  document.querySelectorAll('.om-size-chip').forEach(b => b.classList.toggle('active', b.textContent === size));
+}
+function closeOrderModal(){
+  document.getElementById('order-modal').classList.remove('active');
+  currentOrderProduct = null;
+}
+document.getElementById('order-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  if(!omSelectedColor || !omSelectedSize){
+    document.getElementById('order-validation').classList.add('show');
+    return;
+  }
+  const order = {
+    id: Date.now(),
+    product: currentOrderProduct.name,
+    price: currentOrderProduct.price,
+    currency: currentOrderProduct.currency || 'ج.م',
+    color: omSelectedColor,
+    size: omSelectedSize,
+    phone: document.getElementById('order-phone').value,
+    address: document.getElementById('order-address').value,
+    date: new Date().toLocaleString('ar-EG')
+  };
+  orders.push(order);
+  saveOrders();
+  currentOrderProduct.stock = Math.max(0, currentOrderProduct.stock - 1);
+  saveProducts();
+  renderProducts();
+  closeOrderModal();
+  alert('تم استلام طلبك بنجاح، هنتواصل معك قريباً لتأكيده 🌸');
+});
+document.getElementById('order-modal').addEventListener('click', function(e){
+  if(e.target === this) closeOrderModal();
+});
+
+/* ================= ADMIN: LOGIN / TABS ================= */
+function toggleAdmin(){
+  const isActive = document.getElementById('admin-panel').classList.contains('active');
+  if(isActive){
+    document.getElementById('admin-panel').classList.remove('active');
+    document.getElementById('store-view').style.display = 'block';
+    return;
+  }
+  const pass = prompt('أدخلي كلمة مرور لوحة التحكم:');
+  if(pass === null) return;
+  if(pass === ADMIN_PASSWORD){
+    document.getElementById('admin-panel').classList.add('active');
+    document.getElementById('store-view').style.display = 'none';
+    renderAdminProducts();
+    renderOrders();
+  } else {
+    alert('كلمة المرور غير صحيحة');
+  }
+}
+function switchTab(tab, evt){
+  if(tab === 'logout'){
+    document.getElementById('admin-panel').classList.remove('active');
+    document.getElementById('store-view').style.display = 'block';
+    return;
+  }
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById(tab).classList.add('active');
+  if(evt && evt.target) evt.target.classList.add('active');
+}
+
+/* ================= ADMIN: ADD PRODUCT — COLOR BUILDER ================= */
+let colorsDraft = [];
+let sizesDraft = [];
+
+function addColorToDraft(){
+  const hex = document.getElementById('new-color-hex').value;
+  const nameInput = document.getElementById('new-color-name');
+  const name = nameInput.value.trim();
+  if(!name){ alert('اكتبي اسم اللون'); return; }
+  colorsDraft.push({name, hex});
+  nameInput.value = '';
+  renderColorsDraft();
+}
+function removeColorFromDraft(idx){
+  colorsDraft.splice(idx,1);
+  renderColorsDraft();
+}
+function renderColorsDraft(){
+  document.getElementById('colors-draft-preview').innerHTML = colorsDraft.map((c,i) => `
+    <span class="color-chip-preview">
+      <span class="dot" style="background:${c.hex}"></span> ${c.name}
+      <button type="button" class="chip-remove" onclick="removeColorFromDraft(${i})">&times;</button>
+    </span>`).join('');
+}
+
+function renderSizePresets(){
+  document.getElementById('size-preset-row').innerHTML = SIZE_PRESETS.map(s => `
+    <button type="button" class="size-toggle ${sizesDraft.includes(s)?'active':''}" onclick="toggleSizeDraft('${s}')">${s}</button>`).join('');
+}
+function toggleSizeDraft(s){
+  if(sizesDraft.includes(s)) sizesDraft = sizesDraft.filter(x => x !== s);
+  else sizesDraft.push(s);
+  renderSizePresets();
+}
+function addCustomSize(){
+  const input = document.getElementById('new-size-custom');
+  const val = input.value.trim();
+  if(!val) return;
+  if(!sizesDraft.includes(val)) sizesDraft.push(val);
+  input.value = '';
+  renderSizePresets();
+}
+
+/* image upload */
+let uploadedImageData = null;
+const imageFileInput = document.getElementById('product-image-file');
+const imagePreview = document.getElementById('image-preview');
+imageFileInput.addEventListener('change', function(){
+  const file = this.files[0];
+  if(!file){ uploadedImageData = null; imagePreview.style.display = 'none'; return; }
+  const reader = new FileReader();
+  reader.onload = function(e){
+    uploadedImageData = e.target.result;
+    imagePreview.src = uploadedImageData;
+    imagePreview.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+});
+
+document.getElementById('add-product-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  if(colorsDraft.length === 0){ alert('أضيفي لون واحد على الأقل'); return; }
+  if(sizesDraft.length === 0){ alert('أضيفي مقاس واحد على الأقل'); return; }
+  const urlImage = document.getElementById('product-image').value;
+  const newProduct = {
+    id: Date.now(),
+    name: document.getElementById('product-name').value,
+    description: document.getElementById('product-desc').value,
+    category: document.getElementById('product-category').value,
+    price: parseFloat(document.getElementById('product-price').value),
+    currency: document.getElementById('product-currency').value,
+    image: uploadedImageData || urlImage || 'https://via.placeholder.com/400x520/24443a/f1e9da?text=طلة',
+    colors: colorsDraft.slice(),
+    sizes: sizesDraft.slice(),
+    stock: parseInt(document.getElementById('product-stock').value)
+  };
+  products.push(newProduct);
+  saveProducts();
+  document.getElementById('add-success').classList.add('active');
+  setTimeout(() => document.getElementById('add-success').classList.remove('active'), 2500);
+  this.reset();
+  uploadedImageData = null;
+  imagePreview.style.display = 'none';
+  colorsDraft = [];
+  sizesDraft = [];
+  renderColorsDraft();
+  renderSizePresets();
+  renderProducts();
+  renderCategoryBar();
+  renderAdminProducts();
+});
+
+/* ================= ADMIN: MANAGE PRODUCTS ================= */
+function renderAdminProducts(){
+  const tbody = document.getElementById('admin-products-tbody');
+  tbody.innerHTML = products.map(p => `
+    <tr>
+      <td><img src="${p.image}" style="width:44px; height:56px; object-fit:cover;" onerror="this.src='https://via.placeholder.com/60x76/24443a/f1e9da?text=طلة'"></td>
+      <td>${p.name}</td>
+      <td><div class="mini-dots">${(p.colors||[]).map(c=>`<span style="background:${c.hex}" title="${c.name}"></span>`).join('')}</div></td>
+      <td>${(p.sizes||[]).join(' · ')}</td>
+      <td><input type="number" class="stock-input" style="width:80px;" value="${p.price}" onchange="updatePrice(${p.id}, this.value)"></td>
+      <td>
+        <select onchange="updateCurrency(${p.id}, this.value)">
+          ${CURRENCY_OPTIONS.map(c => `<option value="${c}" ${c===p.currency?'selected':''}>${c}</option>`).join('')}
+        </select>
+      </td>
+      <td><input type="number" class="stock-input" value="${p.stock}" onchange="updateStock(${p.id}, this.value)"></td>
+      <td><button class="delete-btn" onclick="deleteProduct(${p.id})">حذف</button></td>
+    </tr>`).join('') || '<tr><td colspan="8" style="text-align:center; color:#8a8378;">لا توجد منتجات</td></tr>';
+}
+function updateStock(id, val){ const p = products.find(p => p.id === id); if(p){ p.stock = parseInt(val) || 0; saveProducts(); renderProducts(); } }
+function updatePrice(id, val){ const p = products.find(p => p.id === id); if(p){ p.price = parseFloat(val) || 0; saveProducts(); renderProducts(); } }
+function updateCurrency(id, val){ const p = products.find(p => p.id === id); if(p){ p.currency = val; saveProducts(); renderProducts(); } }
+function deleteProduct(id){
+  if(!confirm('هل أنتِ متأكدة من حذف هذا المنتج؟')) return;
+  products = products.filter(p => p.id !== id);
+  delete selectedColorByProduct[id];
+  saveProducts();
+  renderAdminProducts();
+  renderProducts();
+  renderCategoryBar();
+}
+
+/* ================= ADMIN: ORDERS ================= */
+function renderOrders(){
+  const list = document.getElementById('orders-list');
+  if(orders.length === 0){
+    list.innerHTML = '<div class="no-orders">لا توجد طلبات حتى الآن</div>';
+    return;
+  }
+  list.innerHTML = orders.slice().reverse().map(o => `
+    <div class="order-card">
+      <div><strong>المنتج:</strong> ${o.product} (${o.price} ${o.currency || 'ج.م'})</div>
+      <div><strong>اللون:</strong> ${o.color} — <strong>المقاس:</strong> ${o.size}</div>
+      <div><strong>التليفون:</strong> ${o.phone}</div>
+      <div><strong>العنوان:</strong> ${o.address}</div>
+      <div><strong>التاريخ:</strong> ${o.date}</div>
+    </div>`).join('');
+}
+
+/* ================= INIT ================= */
+loadStateFromStorage();
+renderCategoryBar();
+renderProducts();
+renderColorsDraft();
+renderSizePresets();
+</script>
+</body>
+</html>
