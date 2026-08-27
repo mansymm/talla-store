@@ -86,7 +86,7 @@
 
   /* ===== HERO ===== */
   .hero {
-    position: relative; min-height: 65vh; display: flex; align-items: center; justify-content: center;
+    position: relative; min-height: 60vh; display: flex; align-items: center; justify-content: center;
     overflow: hidden; text-align: center; padding: 60px 20px;
     background: radial-gradient(circle at center, rgba(16, 33, 49, 0.8) 0%, rgba(9, 21, 34, 1) 100%);
   }
@@ -128,7 +128,7 @@
   .category-bar { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
   .pill {
     background: var(--bg-surface); border: 1px solid var(--line-gold); color: var(--text-muted);
-    padding: 8px 22px; font-size: 13.5px; border-radius: 20px; transition: all .25s;
+    padding: 8px 22px; font-size: 13.5px; border-radius: 20px; transition: all .25s; cursor: pointer;
   }
   .pill.active, .pill:hover { background: var(--gold-gradient); color: #091522; font-weight: 700; border-color: transparent; box-shadow: 0 0 10px var(--gold-glow); }
 
@@ -167,12 +167,12 @@
   .empty-note { grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--text-muted); background: var(--bg-card); border: 1px solid var(--line-gold); }
 
   /* ===== MODALS & LIGHTBOX ===== */
-  .modal { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(5, 12, 20, 0.8); backdrop-filter: blur(5px); align-items: center; justify-content: center; padding: 20px; }
+  .modal { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(5, 12, 20, 0.85); backdrop-filter: blur(5px); align-items: center; justify-content: center; padding: 20px; }
   .modal.active { display: flex; }
   .lightbox-modal { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.92); align-items: center; justify-content: center; padding: 20px; }
   .lightbox-modal.active { display: flex; }
   .lightbox-content { max-width: 90vw; max-height: 90vh; object-fit: contain; border: 2px solid var(--gold-main); box-shadow: 0 0 30px var(--gold-glow); }
-  .close-modal { position: absolute; left: 16px; top: 14px; font-size: 24px; color: var(--gold-light); background: rgba(9, 21, 34, 0.6); border: 1px solid var(--line-gold); width: 34px; height: 34px; border-radius: 50%; z-index: 3; line-height: 1; }
+  .close-modal { position: absolute; left: 16px; top: 14px; font-size: 24px; color: var(--gold-light); background: rgba(9, 21, 34, 0.6); border: 1px solid var(--line-gold); width: 34px; height: 34px; border-radius: 50%; z-index: 3; line-height: 1; cursor: pointer; }
 
   /* ===== CART & CHECKOUT MODAL ===== */
   .cart-modal-content {
@@ -189,13 +189,13 @@
   .cart-item-title { font-weight: 700; font-size: 14px; color: var(--gold-light); }
   .cart-item-meta { font-size: 12px; color: var(--text-muted); }
   .cart-item-price { font-size: 14px; font-weight: 700; color: var(--gold-main); margin-top: 4px; }
-  .cart-remove-btn { background: none; border: none; color: #e74c3c; font-size: 16px; }
+  .cart-remove-btn { background: none; border: none; color: #e74c3c; font-size: 16px; cursor: pointer; }
   
   .cross-sell-box { margin-top: 20px; background: var(--bg-surface); padding: 14px; border: 1px solid var(--line-gold); border-radius: 4px; }
   .cross-sell-head { font-size: 13px; font-weight: 700; color: var(--gold-light); margin-bottom: 10px; }
   .cross-sell-item { display: flex; gap: 10px; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 12.5px; }
   .cross-sell-item img { width: 40px; height: 50px; object-fit: cover; }
-  .cross-sell-add { background: var(--gold-gradient); color: #091522; font-weight: 700; border: none; padding: 4px 10px; font-size: 11.5px; border-radius: 3px; }
+  .cross-sell-add { background: var(--gold-gradient); color: #091522; font-weight: 700; border: none; padding: 4px 10px; font-size: 11.5px; border-radius: 3px; cursor: pointer; }
 
   .summary-row { display: flex; justify-content: space-between; font-size: 13.5px; margin-bottom: 8px; color: var(--text-muted); }
   .summary-row.total { font-weight: 700; font-size: 17px; border-top: 1px dashed var(--line-gold); padding-top: 10px; color: var(--gold-light); }
@@ -205,15 +205,16 @@
   .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 11px 13px; border: 1px solid var(--line-gold); background: var(--bg-surface); color: var(--text-light); font-size: 14px; border-radius: 4px; }
   .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--gold-main); }
   
-  .submit-btn { width: 100%; background: var(--gold-gradient); color: #091522; font-weight: 700; border: none; padding: 14px; font-size: 15px; letter-spacing: 1px; border-radius: 4px; transition: box-shadow .25s; }
+  .submit-btn { width: 100%; background: var(--gold-gradient); color: #091522; font-weight: 700; border: none; padding: 14px; font-size: 15px; letter-spacing: 1px; border-radius: 4px; transition: box-shadow .25s; cursor: pointer; }
   .submit-btn:hover { box-shadow: 0 0 20px var(--gold-glow); }
 
   /* ===== ADMIN PANEL ===== */
-  .admin-panel { display: none; padding: 28px clamp(20px, 5vw, 64px) 60px; }
+  .admin-panel { display: none; padding: 28px clamp(20px, 5vw, 64px) 60px; min-height: 80vh; }
   .admin-panel.active { display: block; }
-  .admin-header h1 { font-family: var(--serif); font-size: 28px; color: var(--gold-light); margin-bottom: 22px; }
+  .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; border-bottom: 1px solid var(--line-gold); padding-bottom: 14px; }
+  .admin-header h1 { font-family: var(--serif); font-size: 28px; color: var(--gold-light); }
   .admin-tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
-  .tab-btn { background: var(--bg-surface); border: 1px solid var(--line-gold); color: var(--text-light); padding: 10px 20px; font-size: 13.5px; border-radius: 4px; }
+  .tab-btn { background: var(--bg-surface); border: 1px solid var(--line-gold); color: var(--text-light); padding: 10px 20px; font-size: 13.5px; border-radius: 4px; cursor: pointer; }
   .tab-btn.active { background: var(--gold-gradient); color: #091522; font-weight: 700; border-color: transparent; }
   .tab-btn.logout-btn { margin-right: auto; border-color: #e74c3c; color: #e74c3c; }
   .tab-content { display: none; background: var(--bg-card); padding: 26px; border: 1px solid var(--line-gold); border-radius: 4px; }
@@ -222,7 +223,7 @@
   .product-table { width: 100%; border-collapse: collapse; margin-top: 6px; min-width: 640px; }
   .product-table th, .product-table td { padding: 12px 10px; text-align: right; border-bottom: 1px solid var(--line-gold); font-size: 13.5px; }
   .product-table th { background: var(--bg-surface); color: var(--gold-light); font-weight: 500; }
-  .delete-btn { background: none; border: 1px solid #e74c3c; color: #e74c3c; padding: 4px 12px; font-size: 12px; border-radius: 3px; }
+  .delete-btn { background: none; border: 1px solid #e74c3c; color: #e74c3c; padding: 4px 12px; font-size: 12px; border-radius: 3px; cursor: pointer; }
   .delete-btn:hover { background: #e74c3c; color: #fff; }
   
   .order-card { background: var(--bg-surface); border-right: 3px solid var(--gold-main); padding: 16px; margin-bottom: 12px; font-size: 14px; border-radius: 3px; }
@@ -242,7 +243,7 @@
     </div>
   </div>
   <div class="nav-links">
-    <a href="#products">المجموعة</a>
+    <a href="#products" onclick="exitAdmin()">المجموعة</a>
     <button class="cart-nav-btn" onclick="openCartModal()">
       <span>🛒 السلة</span>
       <span class="cart-badge" id="cart-badge-count">0</span>
@@ -377,20 +378,23 @@
 
 <!-- ADMIN PANEL -->
 <div id="admin-panel" class="admin-panel">
-  <div class="admin-header"><h1>لوحة التحكم — طلة TALA</h1></div>
+  <div class="admin-header">
+    <h1>لوحة التحكم — طلة TALA</h1>
+    <button class="tab-btn" onclick="exitAdmin()">العودة للمتجر 🛍️</button>
+  </div>
   <div class="admin-tabs">
     <button class="tab-btn active" onclick="switchTab('add-product', event)">إضافة منتج</button>
     <button class="tab-btn" onclick="switchTab('manage-products', event)">إدارة المنتجات</button>
-    <button class="tab-btn" onclick="switchTab('orders', event)">الطلبات</button>
+    <button class="tab-btn" onclick="switchTab('orders', event)">الطلبات المستقبلة</button>
     <button class="tab-btn" onclick="switchTab('settings', event)">الإعدادات والتكاملات</button>
-    <button class="tab-btn logout-btn" onclick="switchTab('logout', event)">خروج</button>
+    <button class="tab-btn logout-btn" onclick="exitAdmin()">خروج</button>
   </div>
 
   <div id="add-product" class="tab-content active">
     <h2 style="color:var(--gold-light); margin-bottom:16px;">إضافة منتج جديد</h2>
     <form id="add-product-form">
-      <div class="form-group"><label>اسم المنتج</label><input type="text" id="product-name" required></div>
-      <div class="form-group"><label>الوصف</label><textarea id="product-desc" required></textarea></div>
+      <div class="form-group"><label>اسم المنتج *</label><input type="text" id="product-name" required placeholder="مثال: عباية طلة الملكية"></div>
+      <div class="form-group"><label>الوصف *</label><textarea id="product-desc" required placeholder="وصف تفصيلي للمنتج والقماش..."></textarea></div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
         <div class="form-group">
           <label>التصنيف</label>
@@ -402,13 +406,13 @@
           </select>
         </div>
         <div class="form-group">
-          <label>السعر (ج.م)</label>
-          <input type="number" id="product-price" required>
+          <label>السعر (ج.م) *</label>
+          <input type="number" id="product-price" required placeholder="850">
         </div>
       </div>
-      <div class="form-group"><label>رابط الصورة الرئيسية</label><input type="text" id="product-img-url" required></div>
+      <div class="form-group"><label>رابط الصورة الرئيسية *</label><input type="url" id="product-img-url" required placeholder="https://images.unsplash.com/..."></div>
       <div class="form-group"><label>المقاسات (مفصولة بفاصلة)</label><input type="text" id="product-sizes-input" value="S, M, L, XL" required></div>
-      <button type="submit" class="submit-btn">إضافة المنتج للمتجر</button>
+      <button type="submit" class="submit-btn">إضافة المنتج للمتجر ✨</button>
     </form>
   </div>
 
@@ -416,7 +420,7 @@
     <h2 style="color:var(--gold-light); margin-bottom:16px;">إدارة المنتجات</h2>
     <div style="overflow-x:auto;">
       <table class="product-table">
-        <thead><tr><th>الصورة</th><th>المنتج</th><th>السعر</th><th>إجراءات</th></tr></thead>
+        <thead><tr><th>الصورة</th><th>المنتج</th><th>السعر</th><th>التصنيف</th><th>إجراءات</th></tr></thead>
         <tbody id="admin-products-tbody"></tbody>
       </table>
     </div>
@@ -591,7 +595,7 @@ function removeCartItem(idx){
 
 function renderCrossSell(){
   const recs = products.filter(p => !cart.some(c => c.product.id === p.id)).slice(0,2);
-  const container = document.getElementById('cross-sell-list');
+  const container = document.getElementById('cross-sell-box');
   if(!recs.length){ document.getElementById('cross-sell-box').style.display='none'; return; }
   document.getElementById('cross-sell-box').style.display='block';
   container.innerHTML = recs.map(r => `
@@ -666,47 +670,104 @@ document.getElementById('checkout-form').addEventListener('submit', function(e){
   closeCartModal();
 });
 
+/* ===== ADMIN CONTROL FUNCTIONS ===== */
 function toggleAdmin(){
-  const pass = prompt('كلمة سر لوحة التحكم:');
-  if(pass === 'طالة123' || pass === 'talla123'){
+  const pass = prompt('ادخلي كلمة المرور للوحة التحكم (الافتراضية: طلة123 أو 123):');
+  if(!pass) return;
+  
+  const cleanPass = pass.trim();
+  if(cleanPass === 'طلة123' || cleanPass === 'talla123' || cleanPass === '123' || cleanPass === 'طالة123'){
     document.getElementById('admin-panel').classList.add('active');
     document.getElementById('store-view').style.display = 'none';
     renderAdminProducts();
     renderOrders();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    alert('كلمة المرور غير صحيحة! كلمة المرور الافتراضية هي: طلة123');
   }
 }
-function switchTab(tab, evt){
-  if(tab==='logout'){ location.reload(); return; }
-  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-  document.getElementById(tab).classList.add('active');
+
+function exitAdmin(){
+  document.getElementById('admin-panel').classList.remove('active');
+  document.getElementById('store-view').style.display = 'block';
 }
+
+function switchTab(tab, evt){
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.admin-tabs .tab-btn').forEach(b => b.classList.remove('active'));
+  
+  document.getElementById(tab).classList.add('active');
+  if(evt && evt.target) evt.target.classList.add('active');
+}
+
+document.getElementById('add-product-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = document.getElementById('product-name').value;
+  const desc = document.getElementById('product-desc').value;
+  const cat = document.getElementById('product-category').value;
+  const price = parseFloat(document.getElementById('product-price').value);
+  const imgUrl = document.getElementById('product-img-url').value;
+  const sizes = document.getElementById('product-sizes-input').value.split(',').map(s => s.trim());
+
+  const newP = {
+    id: Date.now(),
+    name: name,
+    description: desc,
+    price: price,
+    category: cat,
+    colors: [{ name: "أساسي", hex: "#000", images: [imgUrl] }],
+    sizes: sizes
+  };
+
+  products.push(newP);
+  localStorage.setItem('talla-products', JSON.stringify(products));
+  alert('تم إضافة المنتج بنجاح إلى متجر طلة! ✨');
+  this.reset();
+  renderAdminProducts();
+  renderProducts();
+  renderCategoryBar();
+});
+
 function saveIntegrations(){
   webhookUrl = document.getElementById('setting-webhook').value.trim();
   localStorage.setItem('talla_webhook', webhookUrl);
-  alert('تم حفظ الإعدادات');
+  alert('تم حفظ إعدادات التكامل بنجاح');
 }
+
 function renderAdminProducts(){
   document.getElementById('admin-products-tbody').innerHTML = products.map(p => `
     <tr>
-      <td><img src="${p.colors[0]?.images[0] || ''}" style="width:40px; height:50px; object-fit:cover;"></td>
-      <td style="color:var(--gold-light);">${p.name}</td>
-      <td>${p.price} ج.م</td>
+      <td><img src="${p.colors[0]?.images[0] || ''}" style="width:40px; height:50px; object-fit:cover; border-radius:3px;"></td>
+      <td style="color:var(--gold-light); font-weight:700;">${p.name}</td>
+      <td style="color:var(--gold-main);">${p.price} ج.م</td>
+      <td>${p.category}</td>
       <td><button class="delete-btn" onclick="deleteProduct(${p.id})">حذف</button></td>
     </tr>
   `).join('');
 }
+
 function deleteProduct(id){
-  products = products.filter(p => p.id !== id);
-  localStorage.setItem('talla-products', JSON.stringify(products));
-  renderAdminProducts(); renderProducts();
+  if(confirm('هل أنتِ متأكدة من حذف هذا المنتج؟')){
+    products = products.filter(p => p.id !== id);
+    localStorage.setItem('talla-products', JSON.stringify(products));
+    renderAdminProducts(); 
+    renderProducts();
+    renderCategoryBar();
+  }
 }
+
 function renderOrders(){
-  document.getElementById('orders-list').innerHTML = orders.slice().reverse().map(o => `
+  const container = document.getElementById('orders-list');
+  if(!orders.length){
+    container.innerHTML = '<div style="color:var(--text-muted);">لا توجد طلبات مستقبلة حتى الآن.</div>';
+    return;
+  }
+  container.innerHTML = orders.slice().reverse().map(o => `
     <div class="order-card">
       <div><strong>التاريخ:</strong> ${o.date}</div>
-      <div><strong>العبايات/المنتجات:</strong> ${o.items}</div>
+      <div><strong>المنتجات:</strong> ${o.items}</div>
       <div><strong>الهاتف:</strong> ${o.phone} | <strong>العنوان:</strong> ${o.address}</div>
-      <div><strong>الإجمالي:</strong> ${o.totalPrice}</div>
+      <div><strong>الإجمالي النهائي:</strong> <span style="color:var(--gold-main); font-weight:700;">${o.totalPrice}</span></div>
     </div>
   `).join('');
 }
