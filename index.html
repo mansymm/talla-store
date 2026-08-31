@@ -699,7 +699,7 @@
       الحالة: <strong id="supabase-status">غير متصلة</strong>
     </p>
     <p style="font-size:13px; color:#6b6558; margin-bottom:14px;">
-      لو عايزة تدخلي لوحة التحكم من موبايلك ولاب توبك بنفس البيانات، اربطي المتجر بقاعدة بيانات مجانية على Supabase:
+      لو عايزة تدخلي لوحة التحكم من موبايلك ولاب توبك بنفس البيانات، اربطي المتجر بقاعدة بيانات مجانية على Supabase — والمزامنة هتبقى تلقائية لحظياً (أي تعديل من أي جهاز يظهر فوراً في باقي الأجهزة من غير ما تعملي حاجة):
     </p>
     <ol style="font-size:13px; color:#4a453d; margin:0 0 16px 20px; line-height:2;">
       <li>افتحي <strong>supabase.com</strong> وسجّلي حساب مجاني، واعملي مشروع جديد (Project)</li>
@@ -708,15 +708,30 @@
       <li>من القائمة: Project Settings ← API</li>
       <li>انسخي <strong>Project URL</strong> و <strong>anon public key</strong> وحطيهم هنا تحت</li>
     </ol>
-    <textarea readonly style="width:100%; min-height:130px; font-family:monospace; font-size:11.5px; padding:12px; border:1px solid var(--line); background:var(--parchment); margin-bottom:16px;">create table talla_store (
+    <textarea readonly style="width:100%; min-height:200px; font-family:monospace; font-size:11.5px; padding:12px; border:1px solid var(--line); background:var(--parchment); margin-bottom:16px;">create table if not exists talla_store (
   key text primary key,
   value jsonb,
   updated_at timestamptz default now()
 );
 alter table talla_store enable row level security;
+
+drop policy if exists "public read" on talla_store;
 create policy "public read" on talla_store for select using (true);
+
+drop policy if exists "public insert" on talla_store;
 create policy "public insert" on talla_store for insert with check (true);
-create policy "public update" on talla_store for update using (true);</textarea>
+
+drop policy if exists "public update" on talla_store;
+create policy "public update" on talla_store for update using (true);
+
+-- تفعيل المزامنة اللحظية التلقائية
+DO $$
+BEGIN
+  ALTER PUBLICATION supabase_realtime ADD TABLE talla_store;
+EXCEPTION WHEN duplicate_object THEN
+  NULL;
+END $$;</textarea>
+    <p style="font-size:11.5px; color:#8a8378; margin-top:-10px; margin-bottom:16px;">الكود ده آمن تشغّليه أي عدد مرات من غير أخطاء، حتى لو الجدول كان موجود قبل كده.</p>
     <div class="form-row">
       <div class="form-group"><label>Project URL</label><input type="text" id="supabase-url" placeholder="https://xxxxx.supabase.co"></div>
       <div class="form-group"><label>anon public key</label><input type="text" id="supabase-key" placeholder="eyJhbGciOi..."></div>
@@ -908,12 +923,64 @@ function saveSettings(){
 let supabaseUrl = '';
 let supabaseKey = '';
 let sb = null;
+let realtimeChannel = null;
 function initSupabaseClient(){
   if(supabaseUrl && supabaseKey && window.supabase){
     try{ sb = window.supabase.createClient(supabaseUrl, supabaseKey); }
     catch(e){ sb = null; }
   } else {
     sb = null;
+  }
+  if(sb) subscribeToCloudChanges();
+}
+function subscribeToCloudChanges(){
+  if(!sb) return;
+  if(realtimeChannel){ sb.removeChannel(realtimeChannel); realtimeChannel = null; }
+  realtimeChannel = sb.channel('talla_store_changes')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'talla_store' }, (payload) => {
+      applyCloudRow(payload.new || payload.old);
+    })
+    .subscribe();
+}
+function adminPanelActive(){
+  const el = document.getElementById('admin-panel');
+  return !!(el && el.classList.contains('active'));
+}
+function applyCloudRow(row){
+  if(!row || !row.key) return;
+  const key = row.key;
+  const value = row.value;
+  const storageMap = {products:'talla-products', orders:'talla-orders', coupons:'talla-coupons', offer:'talla-offer', sizeguide:'talla-sizeguide', reviews:'talla-reviews', shipping:'talla-shipping'};
+  if(storageMap[key]) localStorage.setItem(storageMap[key], JSON.stringify(value));
+  const isAdmin = adminPanelActive();
+  if(key === 'products'){
+    products = value;
+    renderProducts(); renderCategoryBar();
+    if(isAdmin){ renderAdminProducts(); renderStockAlert(); }
+  } else if(key === 'orders'){
+    orders = value;
+    if(isAdmin){ renderOrders(); renderStockAlert(); }
+  } else if(key === 'coupons'){
+    coupons = value;
+    if(isAdmin) renderCouponsList();
+  } else if(key === 'offer'){
+    offerSettings = value;
+    renderOfferBanner();
+  } else if(key === 'sizeguide'){
+    sizeGuide = value;
+    if(isAdmin) renderSizeGuideAdmin();
+  } else if(key === 'reviews'){
+    reviews = value;
+    renderReviewsSection();
+    if(isAdmin) renderReviewsAdmin();
+  } else if(key === 'shipping'){
+    shippingZones = value;
+    if(isAdmin) renderShippingZonesList();
+  } else if(key === 'settings'){
+    whatsappNumber = value.whatsappNumber || whatsappNumber;
+    fbPixelId = value.fbPixelId || fbPixelId;
+    sheetsWebhook = value.sheetsWebhook || sheetsWebhook;
+    applyWhatsappButton();
   }
 }
 function cloudPush(key, value){
@@ -975,7 +1042,7 @@ async function manualSync(){
 function updateSupabaseStatus(){
   const el = document.getElementById('supabase-status');
   if(!el) return;
-  el.textContent = sb ? 'متصلة ✅' : 'غير متصلة';
+  el.textContent = sb ? 'متصلة — المزامنة التلقائية شغالة ✅' : 'غير متصلة';
   el.style.color = sb ? 'var(--ok)' : 'var(--danger)';
 }
 function saveSupabaseConfig(){
@@ -994,7 +1061,7 @@ function saveSupabaseConfig(){
     cloudPush('reviews', reviews);
     cloudPush('shipping', shippingZones);
     cloudPush('settings', {whatsappNumber, fbPixelId, sheetsWebhook});
-    alert('تم الاتصال، وتم رفع بيانات متجرك الحالية للسحابة ✅');
+    alert('تم الاتصال، وتم رفع بيانات متجرك الحالية للسحابة — المزامنة التلقائية شغالة دلوقتي ✅');
   } else {
     alert('تعذر الاتصال — تأكدي من الرابط والمفتاح وحاولي تاني');
   }
