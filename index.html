@@ -35,7 +35,7 @@
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
-  body{font-family:var(--sans); background:var(--navy); color:var(--ink); line-height:1.6; min-height:100vh;}
+  body{font-family:var(--sans); background:var(--navy); color:var(--ink); line-height:1.6; min-height:100vh; overflow-x:hidden;}
   img{max-width:100%; display:block;}
   button{font-family:inherit; cursor:pointer;}
   input, select, textarea{font-family:inherit;}
@@ -296,7 +296,7 @@
     padding:32px; position:relative; border-top:4px solid var(--gold); animation:fadeUp .35s ease;
   }
   .info-modal-content h2{font-family:var(--serif); font-size:24px; color:var(--navy); margin-bottom:16px;}
-  .size-guide-table{width:100%; border-collapse:collapse;}
+  .size-guide-table{width:100%; border-collapse:collapse; display:block; overflow-x:auto; -webkit-overflow-scrolling:touch;}
   .size-guide-table th, .size-guide-table td{padding:10px; text-align:center; border-bottom:1px solid var(--line); font-size:13.5px;}
   .size-guide-table th{background:var(--navy); color:#fff; font-size:12.5px;}
   .size-guide-table input{width:70px; padding:6px; text-align:center; border:1px solid var(--line);}
@@ -348,6 +348,87 @@
   .cart-empty{text-align:center; padding:50px 20px; color:#8a8378;}
   .cart-summary-row{display:flex; justify-content:space-between; font-size:14px; padding:6px 0;}
   .cart-summary-row.total{font-size:18px; font-weight:700; color:var(--navy); border-top:1px solid var(--line); margin-top:8px; padding-top:14px;}
+
+  /* ===================================================== */
+  /* ===== MOBILE RESPONSIVENESS ===== */
+  /* ===================================================== */
+  @media (max-width:640px){
+    .site-nav{padding:14px 16px;}
+    .wordmark{font-size:23px;}
+    .nav-links{gap:12px;}
+    .nav-links a:first-of-type{display:none;}
+    .nav-links a{font-size:12.5px;}
+    .admin-link-btn{padding:7px 12px; font-size:12px;}
+    .cart-btn{font-size:20px;}
+
+    .trust-bar{gap:10px 16px; padding:10px 14px; font-size:11px;}
+
+    .hero{min-height:56vh; padding:30px 16px;}
+    .hero-cta{padding:12px 28px; font-size:13px;}
+    .hero p{font-size:14.5px;}
+
+    .category-bar{padding:0 16px; margin-top:26px; gap:8px;}
+    .pill{padding:7px 15px; font-size:12px;}
+
+    .section-head{padding:0 16px; margin:22px 0 18px;}
+    .section-head h2{font-size:23px;}
+
+    .products-grid{grid-template-columns:repeat(2,1fr); padding:0 16px 16px; gap:1px;}
+    .product-name{font-size:16px;}
+    .product-desc{font-size:12px; margin-bottom:10px;}
+    .size-tags{font-size:10.5px; margin-bottom:10px;}
+    .product-body{padding:14px 14px 16px;}
+    .product-footer{flex-direction:column; align-items:stretch; gap:8px;}
+    .order-btn{width:100%; padding:10px 14px; font-size:12px;}
+    .product-price{font-size:16px;}
+    .color-dot{width:20px; height:20px;}
+    .promo-badge{font-size:10px; padding:4px 9px;}
+    .stock-flag{font-size:9.5px; padding:4px 8px;}
+
+    .reviews-section{padding:6px 16px 36px;}
+    .reviews-grid{grid-template-columns:repeat(2,1fr); gap:10px; margin-top:14px;}
+    .review-card{padding:12px;}
+    .review-card img{height:100px;}
+
+    footer{padding:24px 16px;}
+
+    .order-modal-content{max-width:100%; max-height:100vh; border-radius:0;}
+    .order-modal-media{min-height:200px;}
+    .order-modal-media .om-main-image{min-height:170px;}
+    .order-modal-form{padding:22px 18px;}
+    .order-modal-form h2{font-size:21px;}
+
+    .info-modal-content{padding:20px 18px; max-height:92vh;}
+    .info-modal-content h2{font-size:20px;}
+
+    .size-guide-table th, .size-guide-table td{padding:7px 5px; font-size:12px;}
+    .size-guide-table input{width:48px; padding:5px;}
+
+    .modal{padding:0;}
+    #cart-modal .info-modal-content, #size-guide-modal .info-modal-content{max-height:100vh; height:100%; overflow-y:auto;}
+
+    .admin-panel{padding:20px 14px 40px;}
+    .admin-header h1{font-size:22px;}
+    .admin-tabs{gap:6px;}
+    .tab-btn{padding:8px 13px; font-size:12px;}
+    .tab-content{padding:18px 16px;}
+    .form-row{gap:12px;}
+    .price-row{grid-template-columns:1fr; gap:8px;}
+    .coupon-row{grid-template-columns:1fr !important;}
+    .add-color-row{grid-template-columns:40px 1fr auto; gap:8px;}
+
+    .lightbox-overlay{padding:14px;}
+    .lightbox-close{top:10px; left:10px; width:36px; height:36px; font-size:19px;}
+
+    .cart-item img{width:54px; height:68px;}
+    .qty-btn{width:30px; height:30px; font-size:16px;}
+  }
+
+  @media (max-width:380px){
+    .products-grid{grid-template-columns:1fr;}
+    .reviews-grid{grid-template-columns:1fr;}
+    .hero h1{font-size:28px;}
+  }
 </style>
 </head>
 <body>
@@ -612,6 +693,39 @@
     </div>
 
     <button type="button" class="submit-btn" style="width:auto; padding:12px 30px;" onclick="saveSettings()">حفظ</button>
+
+    <h2 style="margin-top:34px;">إدارة المتجر من أي جهاز (Supabase)</h2>
+    <p style="font-size:13px; color:#6b6558; margin-bottom:6px;">
+      الحالة: <strong id="supabase-status">غير متصلة</strong>
+    </p>
+    <p style="font-size:13px; color:#6b6558; margin-bottom:14px;">
+      لو عايزة تدخلي لوحة التحكم من موبايلك ولاب توبك بنفس البيانات، اربطي المتجر بقاعدة بيانات مجانية على Supabase:
+    </p>
+    <ol style="font-size:13px; color:#4a453d; margin:0 0 16px 20px; line-height:2;">
+      <li>افتحي <strong>supabase.com</strong> وسجّلي حساب مجاني، واعملي مشروع جديد (Project)</li>
+      <li>من القائمة الجانبية: SQL Editor ← New query</li>
+      <li>الصقي كود الـ SQL اللي تحت وشغّليه (Run)</li>
+      <li>من القائمة: Project Settings ← API</li>
+      <li>انسخي <strong>Project URL</strong> و <strong>anon public key</strong> وحطيهم هنا تحت</li>
+    </ol>
+    <textarea readonly style="width:100%; min-height:130px; font-family:monospace; font-size:11.5px; padding:12px; border:1px solid var(--line); background:var(--parchment); margin-bottom:16px;">create table talla_store (
+  key text primary key,
+  value jsonb,
+  updated_at timestamptz default now()
+);
+alter table talla_store enable row level security;
+create policy "public read" on talla_store for select using (true);
+create policy "public insert" on talla_store for insert with check (true);
+create policy "public update" on talla_store for update using (true);</textarea>
+    <div class="form-row">
+      <div class="form-group"><label>Project URL</label><input type="text" id="supabase-url" placeholder="https://xxxxx.supabase.co"></div>
+      <div class="form-group"><label>anon public key</label><input type="text" id="supabase-key" placeholder="eyJhbGciOi..."></div>
+    </div>
+    <button type="button" class="submit-btn" style="width:auto; padding:12px 30px;" onclick="saveSupabaseConfig()">حفظ الاتصال</button>
+    <button type="button" class="link-btn" style="margin-right:10px;" onclick="manualSync()">🔄 مزامنة الآن</button>
+    <p style="font-size:12px; color:var(--wine); margin-top:14px; line-height:1.8;">
+      ⚠️ تنبيه أمان: مفتاح الـ anon key بيبقى ظاهر في كود الصفحة لأي حد يفتحها، والسياسات دي بتسمح بقراءة وتعديل البيانات لأي حد معاه المفتاح — يعني حماية بياناتك هتفضل معتمدة على سرية كلمة مرور لوحة التحكم مش على قاعدة البيانات نفسها. مناسب لمتجر صغير، لكن لو حابة حماية أقوى وقتها نضيف نظام تسجيل دخول حقيقي.
+    </p>
   </div>
 </div>
 
@@ -684,6 +798,7 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
 /* ================= DATA ================= */
 let products = [
@@ -764,15 +879,18 @@ function loadStateFromStorage(){
   shippingZones = sz ? JSON.parse(sz) : DEFAULT_SHIPPING_ZONES.slice();
   const sw = localStorage.getItem('talla-sheets-webhook');
   if(sw) sheetsWebhook = sw;
+  supabaseUrl = localStorage.getItem('talla-supabase-url') || '';
+  supabaseKey = localStorage.getItem('talla-supabase-key') || '';
+  initSupabaseClient();
 }
-function saveProducts(){ localStorage.setItem('talla-products', JSON.stringify(products)); }
-function saveOrders(){ localStorage.setItem('talla-orders', JSON.stringify(orders)); }
-function saveCoupons(){ localStorage.setItem('talla-coupons', JSON.stringify(coupons)); }
-function saveOfferSettings(){ localStorage.setItem('talla-offer', JSON.stringify(offerSettings)); }
-function saveSizeGuideData(){ localStorage.setItem('talla-sizeguide', JSON.stringify(sizeGuide)); }
-function saveReviewsData(){ localStorage.setItem('talla-reviews', JSON.stringify(reviews)); }
+function saveProducts(){ localStorage.setItem('talla-products', JSON.stringify(products)); cloudPush('products', products); }
+function saveOrders(){ localStorage.setItem('talla-orders', JSON.stringify(orders)); cloudPush('orders', orders); }
+function saveCoupons(){ localStorage.setItem('talla-coupons', JSON.stringify(coupons)); cloudPush('coupons', coupons); }
+function saveOfferSettings(){ localStorage.setItem('talla-offer', JSON.stringify(offerSettings)); cloudPush('offer', offerSettings); }
+function saveSizeGuideData(){ localStorage.setItem('talla-sizeguide', JSON.stringify(sizeGuide)); cloudPush('sizeguide', sizeGuide); }
+function saveReviewsData(){ localStorage.setItem('talla-reviews', JSON.stringify(reviews)); cloudPush('reviews', reviews); }
 function saveCart(){ localStorage.setItem('talla-cart', JSON.stringify(cart)); }
-function saveShippingZones(){ localStorage.setItem('talla-shipping', JSON.stringify(shippingZones)); }
+function saveShippingZones(){ localStorage.setItem('talla-shipping', JSON.stringify(shippingZones)); cloudPush('shipping', shippingZones); }
 function saveSettings(){
   whatsappNumber = document.getElementById('whatsapp-number').value.trim();
   fbPixelId = document.getElementById('fb-pixel-id').value.trim();
@@ -780,9 +898,106 @@ function saveSettings(){
   localStorage.setItem('talla-whatsapp', whatsappNumber);
   localStorage.setItem('talla-fbpixel', fbPixelId);
   localStorage.setItem('talla-sheets-webhook', sheetsWebhook);
+  cloudPush('settings', {whatsappNumber, fbPixelId, sheetsWebhook});
   applyWhatsappButton();
   if(fbPixelId) injectFacebookPixel(fbPixelId);
   alert('تم حفظ الإعدادات');
+}
+
+/* ================= CLOUD SYNC (Supabase) ================= */
+let supabaseUrl = '';
+let supabaseKey = '';
+let sb = null;
+function initSupabaseClient(){
+  if(supabaseUrl && supabaseKey && window.supabase){
+    try{ sb = window.supabase.createClient(supabaseUrl, supabaseKey); }
+    catch(e){ sb = null; }
+  } else {
+    sb = null;
+  }
+}
+function cloudPush(key, value){
+  if(!sb) return;
+  sb.from('talla_store').upsert({key, value, updated_at: new Date().toISOString()}).then(()=>{}).catch(()=>{});
+}
+async function cloudPullAll(){
+  if(!sb) return false;
+  try{
+    const { data, error } = await sb.from('talla_store').select('key, value');
+    if(error || !data) return false;
+    const map = {};
+    data.forEach(row => { map[row.key] = row.value; });
+    if(map.products) products = map.products;
+    if(map.orders) orders = map.orders;
+    if(map.coupons) coupons = map.coupons;
+    if(map.offer) offerSettings = map.offer;
+    if(map.sizeguide) sizeGuide = map.sizeguide;
+    if(map.reviews) reviews = map.reviews;
+    if(map.shipping) shippingZones = map.shipping;
+    if(map.settings){
+      whatsappNumber = map.settings.whatsappNumber || whatsappNumber;
+      fbPixelId = map.settings.fbPixelId || fbPixelId;
+      sheetsWebhook = map.settings.sheetsWebhook || sheetsWebhook;
+    }
+    localStorage.setItem('talla-products', JSON.stringify(products));
+    localStorage.setItem('talla-orders', JSON.stringify(orders));
+    localStorage.setItem('talla-coupons', JSON.stringify(coupons));
+    localStorage.setItem('talla-offer', JSON.stringify(offerSettings));
+    localStorage.setItem('talla-sizeguide', JSON.stringify(sizeGuide));
+    localStorage.setItem('talla-reviews', JSON.stringify(reviews));
+    localStorage.setItem('talla-shipping', JSON.stringify(shippingZones));
+    return true;
+  } catch(e){ return false; }
+}
+async function syncFromCloudOnLoad(){
+  const ok = await cloudPullAll();
+  if(ok){
+    renderCategoryBar();
+    renderProducts();
+    renderReviewsSection();
+    renderOfferBanner();
+  }
+}
+async function manualSync(){
+  if(!sb){ alert('من فضلك احفظي بيانات Supabase الأول'); return; }
+  const ok = await cloudPullAll();
+  if(ok){
+    renderCategoryBar(); renderProducts(); renderReviewsSection(); renderOfferBanner();
+    if(document.getElementById('admin-panel').classList.contains('active')){
+      renderAdminProducts(); renderOrders(); renderStockAlert(); renderCouponsList();
+      renderSizeGuideAdmin(); renderReviewsAdmin(); renderShippingZonesList();
+    }
+    alert('تمت المزامنة بنجاح ✅');
+  } else {
+    alert('تعذرت المزامنة، تأكدي من رابط ومفتاح Supabase');
+  }
+}
+function updateSupabaseStatus(){
+  const el = document.getElementById('supabase-status');
+  if(!el) return;
+  el.textContent = sb ? 'متصلة ✅' : 'غير متصلة';
+  el.style.color = sb ? 'var(--ok)' : 'var(--danger)';
+}
+function saveSupabaseConfig(){
+  supabaseUrl = document.getElementById('supabase-url').value.trim();
+  supabaseKey = document.getElementById('supabase-key').value.trim();
+  localStorage.setItem('talla-supabase-url', supabaseUrl);
+  localStorage.setItem('talla-supabase-key', supabaseKey);
+  initSupabaseClient();
+  updateSupabaseStatus();
+  if(sb){
+    cloudPush('products', products);
+    cloudPush('orders', orders);
+    cloudPush('coupons', coupons);
+    cloudPush('offer', offerSettings);
+    cloudPush('sizeguide', sizeGuide);
+    cloudPush('reviews', reviews);
+    cloudPush('shipping', shippingZones);
+    cloudPush('settings', {whatsappNumber, fbPixelId, sheetsWebhook});
+    alert('تم الاتصال، وتم رفع بيانات متجرك الحالية للسحابة ✅');
+  } else {
+    alert('تعذر الاتصال — تأكدي من الرابط والمفتاح وحاولي تاني');
+  }
 }
 function applyWhatsappButton(){
   const btn = document.getElementById('whatsapp-float');
@@ -1207,7 +1422,7 @@ function renderShippingZonesList(){
 }
 
 /* ================= ADMIN: LOGIN / TABS ================= */
-function toggleAdmin(){
+async function toggleAdmin(){
   const isActive = document.getElementById('admin-panel').classList.contains('active');
   if(isActive){
     document.getElementById('admin-panel').classList.remove('active');
@@ -1217,6 +1432,7 @@ function toggleAdmin(){
   const pass = prompt('أدخلي كلمة مرور لوحة التحكم:');
   if(pass === null) return;
   if(pass === ADMIN_PASSWORD){
+    if(sb) await cloudPullAll();
     document.getElementById('admin-panel').classList.add('active');
     document.getElementById('store-view').style.display = 'none';
     renderAdminProducts();
@@ -1226,6 +1442,7 @@ function toggleAdmin(){
     renderSizeGuideAdmin();
     renderReviewsAdmin();
     renderShippingZonesList();
+    renderProducts();
   } else {
     alert('كلمة المرور غير صحيحة');
   }
@@ -1251,6 +1468,9 @@ function switchTab(tab, evt){
     document.getElementById('whatsapp-number').value = whatsappNumber;
     document.getElementById('fb-pixel-id').value = fbPixelId;
     document.getElementById('sheets-webhook').value = sheetsWebhook;
+    document.getElementById('supabase-url').value = supabaseUrl;
+    document.getElementById('supabase-key').value = supabaseKey;
+    updateSupabaseStatus();
   }
   if(tab === 'offers'){
     document.getElementById('offer-label-input').value = offerSettings.label || '';
@@ -1638,6 +1858,7 @@ renderReviewsSection();
 checkProductLinkParam();
 updateCartBadge();
 if(fbPixelId) injectFacebookPixel(fbPixelId);
+if(sb) syncFromCloudOnLoad();
 
 document.getElementById('size-guide-modal').addEventListener('click', function(e){
   if(e.target === this) closeSizeGuide();
