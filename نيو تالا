@@ -1,0 +1,232 @@
+<div class="tala-full-theme">
+
+  <!-- 1. شريط الإعلانات العلوي -->
+  <div class="tala-top-bar">
+    <span>🚚 شحن سريع لكافة المحافظات | 🔍 معاينة القماش والمنتج عند الاستلام | 🎁 خصم خاص على القطعة الثانية</span>
+  </div>
+
+  <!-- 2. قسم الهيرو الرئيسي (Hero Section) -->
+  <section class="tala-hero">
+    <div class="tala-hero-overlay">
+      <span class="tala-pill">تشكيلة موسم 2026 الحصرية</span>
+      <h1 class="tala-hero-title">طَلّــة ✨ لأرقى العبايات المصرية</h1>
+      <p class="tala-hero-desc">نعيد تعريف الأناقة الشرقية بأجود خامات الكريب السعودي والإنترنت والكركيب الفاخر، بتصاميم تناسب حضوركِ المميز في كل وقت.</p>
+      <div class="tala-btn-group">
+        <a href="#products" class="tala-btn tala-btn-primary">استكشفي المجموعة الجديدة</a>
+        <a href="#offers" class="tala-btn tala-btn-secondary">عروض الموسم</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. شريط الضمانات والمميزات -->
+  <section class="tala-trust-grid">
+    <div class="trust-card">
+      <div class="trust-icon">💎</div>
+      <h4>خامات فاخرة</h4>
+      <p>أقمشة كريب وتطريز يدوّي عالي الجودة لا يتغير مع الغسيل</p>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">🔍</div>
+      <h4>معاينة قبل الدفع</h4>
+      <p>افحصي العباية وتأكدي من القياس والجودة قبل السداد للمندوب</p>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">🚀</div>
+      <h4>توصيل سريع</h4>
+      <p>شحن لجميع محافظات مصر خلال 24 - 48 ساعة</p>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">🔄</div>
+      <h4>استبدال مرن</h4>
+      <p>إمكانية تعديل المقاس أو الاستبدال بكل سهولة</p>
+    </div>
+  </section>
+
+  <!-- 4. أقسام التشكيلات الرئيسية -->
+  <section class="tala-section">
+    <h2 class="tala-section-title">مجموعات طلة المتميزة</h2>
+    <div class="tala-cat-grid">
+      <div class="cat-card">
+        <h3>عبايات استقبال ومناسبات</h3>
+        <p>لمسات ذهبية وتطريز راقٍ للزيارات والعزومات</p>
+        <span class="cat-link">تسوقي الآن ←</span>
+      </div>
+      <div class="cat-card">
+        <h3>عبايات خروج كاجوال</h3>
+        <p>قصات عملية وخفيفة للاستخدام اليومي والعمل</p>
+        <span class="cat-link">تسوقي الآن ←</span>
+      </div>
+      <div class="cat-card">
+        <h3>عبايات سوداء ملكية</h3>
+        <p>فخامة اللون الأسود مع أرقى الأقمشة الخليجية</p>
+        <span class="cat-link">تسوقي الآن ←</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. بنر العرض الخاص -->
+  <section id="offers" class="tala-promo-banner">
+    <div class="promo-content">
+      <span class="promo-tag">عرض لفترة محدودة</span>
+      <h2>احصلي على خصم 15% عند طلب عبايتين أو أكثر</h2>
+      <p>استخدمي الكود <strong>TALA15</strong> عند إتمام الطلب، أو اطلبي مباشرة عبر الواتساب.</p>
+    </div>
+  </section>
+
+</div>
+
+<style>
+  :root {
+    --tala-gold: #D4AF37;
+    --tala-gold-light: #f3e5ab;
+    --tala-dark: #10222b;
+    --tala-card-bg: #18303c;
+    --tala-white: #FFFFFF;
+  }
+
+  .tala-full-theme {
+    direction: rtl;
+    font-family: system-ui, -apple-system, sans-serif;
+    color: var(--tala-white);
+    background-color: var(--tala-dark);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  /* Top Bar */
+  .tala-top-bar {
+    background: #091318;
+    color: var(--tala-gold);
+    padding: 10px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  }
+
+  /* Hero Section */
+  .tala-hero {
+    background: linear-gradient(180deg, rgba(16,34,43,0.7) 0%, rgba(24,48,60,0.95) 100%);
+    padding: 60px 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--tala-gold);
+  }
+
+  .tala-pill {
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--tala-gold);
+    border: 1px solid var(--tala-gold);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    display: inline-block;
+    margin-bottom: 15px;
+  }
+
+  .tala-hero-title {
+    color: var(--tala-gold);
+    font-size: 32px;
+    margin: 10px 0 15px 0;
+    font-weight: 800;
+  }
+
+  .tala-hero-desc {
+    max-width: 650px;
+    margin: 0 auto 25px auto;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #d1d5db;
+  }
+
+  .tala-btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .tala-btn {
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 14px;
+  }
+
+  .tala-btn-primary {
+    background: var(--tala-gold);
+    color: #000;
+  }
+
+  .tala-btn-secondary {
+    border: 1px solid var(--tala-gold);
+    color: var(--tala-gold);
+    background: transparent;
+  }
+
+  /* Trust Grid */
+  .tala-trust-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 30px 20px;
+    background: var(--tala-dark);
+  }
+
+  .trust-card {
+    background: var(--tala-card-bg);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 10px;
+    padding: 20px 15px;
+    text-align: center;
+  }
+
+  .trust-icon { font-size: 26px; margin-bottom: 8px; }
+  .trust-card h4 { color: var(--tala-gold); margin: 0 0 6px 0; font-size: 16px; }
+  .trust-card p { font-size: 12px; color: #9ca3af; margin: 0; line-height: 1.5; }
+
+  /* Section Titles & Categories */
+  .tala-section { padding: 30px 20px; text-align: center; }
+  .tala-section-title {
+    color: var(--tala-gold);
+    font-size: 24px;
+    margin-bottom: 25px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .tala-cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+  }
+
+  .cat-card {
+    background: var(--tala-card-bg);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 25px 15px;
+    border-radius: 12px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .cat-card:hover { transform: translateY(-5px); border-color: var(--tala-gold); }
+  .cat-card h3 { color: var(--tala-white); font-size: 18px; margin-bottom: 8px; }
+  .cat-card p { color: #9ca3af; font-size: 13px; margin-bottom: 15px; }
+  .cat-link { color: var(--tala-gold); font-size: 13px; font-weight: bold; }
+
+  /* Promo Banner */
+  .tala-promo-banner {
+    background: linear-gradient(135deg, #18303c 0%, #091318 100%);
+    border: 1px solid var(--tala-gold);
+    margin: 20px;
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  .promo-tag { background: var(--tala-gold); color: #000; padding: 4px 12px; font-weight: bold; font-size: 12px; border-radius: 4px; }
+  .tala-promo-banner h2 { color: var(--tala-gold); margin: 15px 0 10px 0; font-size: 22px; }
+  .tala-promo-banner p { color: #e5e7eb; font-size: 14px; margin: 0; }
+</style>
